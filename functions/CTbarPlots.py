@@ -23,6 +23,7 @@ def CTbarPlots(samples, vcf_df, chrom_len, window_size):
     samples_names =  '-'.join(map(str, samples))
     chromosomes = chrom_len.index
     lengths = chrom_len.LEN
+    max_length = lengths.max()
     
     gt_samples = ['%s_GT' % sample for sample in samples]
     genotypes = ['0/0', '0/1', '1/1']
@@ -110,6 +111,7 @@ def CTbarPlots(samples, vcf_df, chrom_len, window_size):
         plt.figure(num=chrom, figsize=(21,4), dpi=500, facecolor='w', edgecolor='whitesmoke')
         plt.ylabel('Quantity')
         plt.xlabel('Position (bp)')
+        plt.xlim([-max_length*0.01, max_length*1.01])
         plt.title('contingency-bar-plot-samples-%s-chromosome-%s' % (samples_names, chromosomes[chrom]))
 
         width = window_size
