@@ -17,3 +17,4 @@ from functions.stats import *
 from functions.FilterVCF import *
 from functions.CTguide import *
 from functions.variant_hist import *
+from functions.GTfilter import *
