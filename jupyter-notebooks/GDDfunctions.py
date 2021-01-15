@@ -16,3 +16,4 @@ from functions.CTbarPlots import *
 from functions.stats import *
 from functions.FilterVCF import *
 from functions.CTguide import *
+from functions.variant_hist import *
