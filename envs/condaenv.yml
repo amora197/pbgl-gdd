@@ -1,0 +1,7 @@
+dependencies:
+  - python=3
+  - notebook
+  - matplotlib
+  - dataframe_image
+  - seaborn
+  - scikit-allel
