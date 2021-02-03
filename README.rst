@@ -6,12 +6,6 @@
 GDD - Genomic Diversity Distribution
 ====================================
 
-.. toctree::
-   :maxdepth: 3
-   :caption: Contents:
-
-
-
 Introduction
 ------------
 
