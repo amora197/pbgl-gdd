@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>GDD - Genomic Diversity Distribution &mdash; gdd 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> gdd
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">GDD - Genomic Diversity Distribution</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#available-functions">Available Functions</a><ul>
+<li><a class="reference internal" href="#contingency-table">contingency_table</a></li>
+<li><a class="reference internal" href="#ct-guide">ct_guide</a></li>
+<li><a class="reference internal" href="#ctbarplots">CTbarPlots</a></li>
+<li><a class="reference internal" href="#filter-similar-gt">filter_similar_gt</a></li>
+<li><a class="reference internal" href="#filter-vcf">filter_vcf</a></li>
+<li><a class="reference internal" href="#gtbarplots">GTbarPlots</a></li>
+<li><a class="reference internal" href="#gtplot">GTplot</a></li>
+<li><a class="reference internal" href="#gtplots">GTplots</a></li>
+<li><a class="reference internal" href="#plot-variant-hist">plot_variant_hist</a></li>
+<li><a class="reference internal" href="#vcftotable">VCFtoTable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">gdd</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>GDD - Genomic Diversity Distribution</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gdd-genomic-diversity-distribution">
+<h1>GDD - Genomic Diversity Distribution</h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>GDD is a tool for variant analysis written in Python. It uses multiple libraries, such as Pandas, Numpy, Scikit-Allel, and others. The description and parameters for each function is described below.</p>
+</div>
+<div class="section" id="available-functions">
+<h2>Available Functions</h2>
+<div class="section" id="contingency-table">
+<h3>contingency_table</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_table</span> <span class="o">=</span> <span class="n">contingency_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Returns a contingency table of two samples in table form. The parameters are the following:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of two samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the genotypes GT of the <code class="docutils literal notranslate"><span class="pre">samples</span></code> extracted from the VCF file; the dataframe can also be mutated after filtering being done.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chromosome</span></code> - used to save the name of the chromosome being compared; to print the contingency table of a specific chromosome, the <code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> first needs to be filtered for the specific chromosome. Here is an example:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromosome</span> <span class="o">=</span> <span class="s1">&#39;Chr12&#39;</span>
+<span class="n">chromosome_dataframe</span> <span class="o">=</span> <span class="n">vcf_dataframe</span><span class="p">[</span> <span class="n">vcf_dataframe</span><span class="o">.</span><span class="n">CHROM</span> <span class="o">==</span> <span class="n">chromosome</span> <span class="p">]</span>
+<span class="n">chromosome_dataframe</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">contingency_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">chromosome_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output looks like the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Contingency</span> <span class="pre">Table</span> <span class="pre">-</span> <span class="pre">Chromosome</span> <span class="pre">Chr12</span></code></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td colspan="5"><p>SampleB</p></td>
+</tr>
+<tr class="row-even"><td rowspan="5"><p>SampleA</p></td>
+<td></td>
+<td><p>0/0</p></td>
+<td><p>0/1</p></td>
+<td><p>1/1</p></td>
+<td><p>other</p></td>
+</tr>
+<tr class="row-odd"><td><p>0/0</p></td>
+<td><p>#</p></td>
+<td><p>#</p></td>
+<td><p>#</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0/1</p></td>
+<td><p>#</p></td>
+<td><p>#</p></td>
+<td><p>#</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1/1</p></td>
+<td><p>#</p></td>
+<td><p>#</p></td>
+<td><p>#</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>#</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ct-guide">
+<h3>ct_guide</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_guide</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Prints out a table, depicting letters that serve as a guide for the Contingency Table bar plots output from the <code class="docutils literal notranslate"><span class="pre">CTbarPlots()</span></code> function described next.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td colspan="5"><p>SampleB</p></td>
+</tr>
+<tr class="row-even"><td rowspan="5"><p>SampleA</p></td>
+<td></td>
+<td><p>0/0</p></td>
+<td><p>0/1</p></td>
+<td><p>1/1</p></td>
+<td><p>other</p></td>
+</tr>
+<tr class="row-odd"><td><p>0/0</p></td>
+<td><p>a</p></td>
+<td><p>b</p></td>
+<td><p>c</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0/1</p></td>
+<td><p>d</p></td>
+<td><p>e</p></td>
+<td><p>f</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1/1</p></td>
+<td><p>g</p></td>
+<td><p>h</p></td>
+<td><p>i</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>j</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ctbarplots">
+<h3>CTbarPlots</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CTbarPlots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Plots a genotypic contingency histogram of two samples, depicting by color genotypes along each chromosome. It is essential to use the contingency table guide printed from the output of the <code class="docutils literal notranslate"><span class="pre">ct_guide()</span></code> function. The parameters consist of:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of the two samples being compared.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleA_GT</span></code> and <code class="docutils literal notranslate"><span class="pre">sampleB_GT</span></code> fields.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
+</ol>
+</div>
+<div class="section" id="filter-similar-gt">
+<h3>filter_similar_gt</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_similar_gt</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">genotype</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Returns a dataframe that has filtered out variants where two samples have the same genotype, i.e. not real variants. The parameters consist of:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of 2 samples being analyzed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">genotype</span></code> - genotype to be filtered out; normally, loci where both samples have 0/0, 1/1, or other genotypes that are not 0’s or 1’s are filtered out; these other genotypes could be 0/2, 1/3, 1/2, etc.</p></li>
+</ol>
+</div>
+<div class="section" id="filter-vcf">
+<h3>filter_vcf</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_vcf</span><span class="p">(</span><span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">filter_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Returns a filtered vcf_dataframe. A filter list can be input in the <code class="docutils literal notranslate"><span class="pre">filter_list</span></code> parameter. The parameter options are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing all the samples’ attributes to be analyzed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_list</span></code> - string of list containing comparison operators, while each comparison is separated by commas; as an example, if only SNPS variants are to be kept, while also clipping coverage, here is how it is done:</p></li>
+</ol>
+<dl class="simple">
+<dt>::</dt><dd><p>filter_list = “TYPE == snp, DP &gt;= DPmin, DP &lt;= DPmax”
+filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="gtbarplots">
+<h3>GTbarPlots</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GTbarPlots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Plots genotypic histograms of two samples, depicting by color 0/0, 0/1, or 1/1 genotypes along each chromosome per sample. The parameters consist of:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of the two samples being compared.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleA_GT</span></code> and <code class="docutils literal notranslate"><span class="pre">sampleB_GT</span></code> fields.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
+</ol>
+</div>
+<div class="section" id="gtplot">
+<h3>GTplot</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GTplot</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Plots the genotypes of each chromosome per sample in one figure. The parameters are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples in the VCF file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+</ol>
+</div>
+<div class="section" id="gtplots">
+<h3>GTplots</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GTplots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Plots the 0/0, 0/1, and 1/1 genotypes per chromosome per sample. The parameters are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list samples being analyzed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+</ol>
+</div>
+<div class="section" id="plot-variant-hist">
+<h3>plot_variant_hist</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_variant_hist</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">MSTD</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Plots histogram of specified <code class="docutils literal notranslate"><span class="pre">attribute</span></code> from the <code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code>. The parameters are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples; used to create title of plot and to save the plot with the samples being analyzed; does not affect the output of the histogram.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing all the samples’ attributes to be analyzed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chromosome</span></code> - chromosome being analyzed; if analyzing variants from all chromosomes, inserte <code class="docutils literal notranslate"><span class="pre">all</span></code> as the parameter; used to create title and save the plot; does not affect the output of histogram.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attribute</span></code> - attribute being analyzed; options are: <code class="docutils literal notranslate"><span class="pre">CHROM</span></code>, <code class="docutils literal notranslate"><span class="pre">POS</span></code>, <code class="docutils literal notranslate"><span class="pre">REF</span></code>, <code class="docutils literal notranslate"><span class="pre">ALT</span></code>, <code class="docutils literal notranslate"><span class="pre">QUAL</span></code>, <code class="docutils literal notranslate"><span class="pre">DP</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_AD</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_AN</span></code>, <code class="docutils literal notranslate"><span class="pre">TYPE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bins</span></code> - number of bins for the histogram grouping.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MSTD</span></code> - default to <code class="docutils literal notranslate"><span class="pre">False</span></code>; if <code class="docutils literal notranslate"><span class="pre">True</span></code>, the histogram will include the Mean and STandard Deviation (MSTD) values, while showing vertical lines of the first ± standard deviation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xmin</span></code> - default to 0; if edited, will not work unless used in combination with the <code class="docutils literal notranslate"><span class="pre">xmax</span></code> parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xmax</span></code> - default to 0, which in reality plots all the way to the maximum X value of the attribute; when bigger than 0, the x-axis will be limited to the number inserted.</p></li>
+</ol>
+</div>
+<div class="section" id="vcftotable">
+<h3>VCFtoTable</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">VCFtoTable</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">,</span> <span class="n">filter_gt</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Extracts information from a VCF file as input and returns 3 outputs. The parameters are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_file</span></code> - path to VCF file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_gt</span></code> - default to <code class="docutils literal notranslate"><span class="pre">False</span></code>; it was previously used to filter out the variants where the samples contained the same genotypes GT, such as 0/0, 0/1, and 1/1; now it does not have any functionality; another function <code class="docutils literal notranslate"><span class="pre">filter_similar_gt</span></code> does the job to filter out the same genotypes.</p></li>
+</ol>
+<p>The 3 outputs are the following:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples in the VCF file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the following fields: <code class="docutils literal notranslate"><span class="pre">CHROM</span></code>, <code class="docutils literal notranslate"><span class="pre">POS</span></code>, <code class="docutils literal notranslate"><span class="pre">REF</span></code>, <code class="docutils literal notranslate"><span class="pre">ALT</span></code>, <code class="docutils literal notranslate"><span class="pre">QUAL</span></code>, <code class="docutils literal notranslate"><span class="pre">DP</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_AD</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_AN</span></code>, <code class="docutils literal notranslate"><span class="pre">TYPE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Anibal Morales, IAEA PBGL - UN FAO.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
