@@ -44,7 +44,7 @@ Returns a contingency table of two samples in table form. The parameters are the
    chromosome_dataframe.reset_index(inplace=True, drop=True)
    contingency_table(samples, chromosome_dataframe, chromosome)
 
-The output looks like the following:
+The output of all chromosomes would look like the following:
 
 ``Contingency Table - Chromosome Chr12``
 
@@ -62,6 +62,14 @@ The output looks like the following:
 |              |  other  |         |         |         |   #   |
 +--------------+---------+---------+---------+---------+-------+
 
+Here is an actual output. Notice how all the numbers inside ``other`` are the same.
+
+.. figure:: ../images/cttable.png
+   :alt: ct-table
+   :align: center
+
+   contingency table of genotypes for samples 'PAHAT_1' and 'GHP-2-2' for all chromosomes
+
 ct_guide
 ^^^^^^^^
 
@@ -73,21 +81,13 @@ ct_guide
 
 **Description**:
 
-Prints out a table, depicting letters that serve as a guide for the Contingency Table bar plots output from the ``CTbarPlots()`` function described next.  
+Prints out a table, depicting letters that serve as a guide for the Contingency Table bar plots output from the ``CTbarPlots()`` function described next. The table can be seen below.
 
-+--------------+-----------------------------------------------+
-|              |                SampleB                        |
-+--------------+---------+---------+---------+---------+-------+
-|              |         |  0/0    |   0/1   |   1/1   | other |
-|              +---------+---------+---------+---------+-------+
-|              |   0/0   |   a     |    b    |    c    |       |
-|              +---------+---------+---------+---------+-------+
-|   SampleA    |   0/1   |   d     |    e    |    f    |       |
-|              +---------+---------+---------+---------+-------+
-|              |   1/1   |   g     |    h    |    i    |       |
-|              +---------+---------+---------+---------+-------+
-|              |  other  |         |         |         |   j   |
-+--------------+---------+---------+---------+---------+-------+
+.. figure:: ../images/ctguide.png
+   :alt: ct-guide
+   :align: center
+
+   contingency table guide for the CTbarPlots function
 
 CTbarPlots
 ^^^^^^^^^^
@@ -106,6 +106,15 @@ Plots a genotypic contingency histogram of two samples, depicting by color genot
 2. ``vcf_dataframe`` - pandas dataframe containing the ``sampleA_GT`` and ``sampleB_GT`` fields.
 3. ``chrom_len_dataframe`` - pandas dataframe containing the chromosome names and their respective lengths.
 4. ``window_size`` - the length in base-pairs (bp) of the window size to be analyzed.
+
+Below is an example of the output.
+
+.. figure:: ../images/ctbarplot.png
+   :alt: ct-bar-plot
+   :height: 600px
+   :align: center
+
+   contingency bar genotypes plots for samples 'PAHAT_1' and 'GHP-2-2' for 3 chromosomes (click to expand)
 
 filter_similar_gt
 ^^^^^^^^^^^^^^^^^
@@ -141,6 +150,7 @@ Returns a filtered vcf_dataframe. A filter list can be input in the ``filter_lis
 2. ``filter_list`` - string of list containing comparison operators, while each comparison is separated by commas; as an example, if only SNPS variants are to be kept, while also clipping coverage, here is how it is done:
 
 ::
+
    filter_list = "TYPE == snp, DP >= DPmin, DP <= DPmax"
    filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)
 
@@ -162,6 +172,15 @@ Plots genotypic histograms of two samples, depicting by color 0/0, 0/1, or 1/1 g
 3. ``chrom_len_dataframe`` - pandas dataframe containing the chromosome names and their respective lengths.
 4. ``window_size`` - the length in base-pairs (bp) of the window size to be analyzed.
 
+Below an example figure can be seen.
+
+.. figure:: ../images/gtbarplots.png
+   :alt: gt-bar-plots
+   :height: 600px
+   :align: center
+
+   genotype bar plots for samples 'PAHAT_1' and 'GHP-2-2' for 3 chromosomes (click to expand)
+
 GTplot
 ^^^^^^
 
@@ -179,6 +198,15 @@ Plots the genotypes of each chromosome per sample in one figure. The parameters 
 2. ``vcf_dataframe`` - pandas dataframe containing the ``sampleName_GT`` field per sample.
 3. ``chrom_len_dataframe`` - pandas dataframe containing the chromosome names and their respective lengths.
 
+Below an example figure can be seen.
+
+.. figure:: ../images/gtplot.png
+   :alt: gt-plot
+   :height: 600px
+   :align: center
+
+   genotype plots for samples 'PAHAT_1' and 'GHP-2-2' for all chromosomes (click to expand)
+
 GTplots
 ^^^^^^^
 
@@ -195,6 +223,15 @@ Plots the 0/0, 0/1, and 1/1 genotypes per chromosome per sample. The parameters 
 1. ``samples`` - list samples being analyzed.
 2. ``vcf_dataframe`` - pandas dataframe containing the ``sampleName_GT`` field per sample.
 3. ``chrom_len_dataframe`` - pandas dataframe containing the chromosome names and their respective lengths.
+
+Below an example figure can be seen.
+
+.. figure:: ../images/gtplots.png
+   :alt: gt-plots
+   :height: 600px
+   :align: center
+
+   genotype plots for samples 'PAHAT_1' and 'GHP-2-2' for 3 chromosomes (click to expand)
 
 plot_variant_hist
 ^^^^^^^^^^^^^^^^^
@@ -218,6 +255,28 @@ Plots histogram of specified ``attribute`` from the ``vcf_dataframe``. The param
 7. ``xmin`` - default to 0; if edited, will not work unless used in combination with the ``xmax`` parameter.
 8. ``xmax`` - default to 0, which in reality plots all the way to the maximum X value of the attribute; when bigger than 0, the x-axis will be limited to the number inserted.
 
+Below multiple example figures for ``DP``, ``TYPE`` and ``PAHAT_1_GT`` can be seen.
+
+.. figure:: ../images/dphist.png
+   :alt: dp-hist
+   :height: 600px
+   :align: center
+
+   ``DP`` histogram for 'PAHAT_1' for all chromosomes (click to expand)
+
+.. figure:: ../images/typehist.png
+   :alt: type-hist
+   :height: 600px
+   :align: center
+
+   ``TYPE`` of mutations histogram for all samples and all chromosomes (click to expand)
+
+.. figure:: ../images/gthist.png
+   :alt: gt-hist
+   :height: 600px
+   :align: center
+
+   ``PAHAT_1_GT`` histogram of sample ``PAHAT_1`` available genotypes in all chromosomes (click to expand)
 
 VCFtoTable
 ^^^^^^^^^^

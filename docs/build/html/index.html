@@ -197,7 +197,7 @@
 <span class="n">contingency_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">chromosome_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The output looks like the following:</p>
+<p>The output of all chromosomes would look like the following:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Contingency</span> <span class="pre">Table</span> <span class="pre">-</span> <span class="pre">Chromosome</span> <span class="pre">Chr12</span></code></p>
 <table class="docutils align-default">
 <colgroup>
@@ -245,6 +245,11 @@
 </tr>
 </tbody>
 </table>
+<p>Here is an actual output. Notice how all the numbers inside <code class="docutils literal notranslate"><span class="pre">other</span></code> are the same.</p>
+<div class="figure align-center" id="id1">
+<img alt="ct-table" src="_images/cttable.png" />
+<p class="caption"><span class="caption-text">contingency table of genotypes for samples ‘PAHAT_1’ and ‘GHP-2-2’ for all chromosomes</span></p>
+</div>
 </div>
 <div class="section" id="ct-guide">
 <h3>ct_guide</h3>
@@ -253,53 +258,11 @@
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
-<p>Prints out a table, depicting letters that serve as a guide for the Contingency Table bar plots output from the <code class="docutils literal notranslate"><span class="pre">CTbarPlots()</span></code> function described next.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 12%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td></td>
-<td colspan="5"><p>SampleB</p></td>
-</tr>
-<tr class="row-even"><td rowspan="5"><p>SampleA</p></td>
-<td></td>
-<td><p>0/0</p></td>
-<td><p>0/1</p></td>
-<td><p>1/1</p></td>
-<td><p>other</p></td>
-</tr>
-<tr class="row-odd"><td><p>0/0</p></td>
-<td><p>a</p></td>
-<td><p>b</p></td>
-<td><p>c</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>0/1</p></td>
-<td><p>d</p></td>
-<td><p>e</p></td>
-<td><p>f</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>1/1</p></td>
-<td><p>g</p></td>
-<td><p>h</p></td>
-<td><p>i</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>other</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td><p>j</p></td>
-</tr>
-</tbody>
-</table>
+<p>Prints out a table, depicting letters that serve as a guide for the Contingency Table bar plots output from the <code class="docutils literal notranslate"><span class="pre">CTbarPlots()</span></code> function described next. The table can be seen below.</p>
+<div class="figure align-center" id="id2">
+<img alt="ct-guide" src="_images/ctguide.png" />
+<p class="caption"><span class="caption-text">contingency table guide for the CTbarPlots function</span></p>
+</div>
 </div>
 <div class="section" id="ctbarplots">
 <h3>CTbarPlots</h3>
@@ -315,6 +278,11 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
 </ol>
+<p>Below is an example of the output.</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/ctbarplot.png"><img alt="ct-bar-plot" src="_images/ctbarplot.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text">contingency bar genotypes plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
+</div>
 </div>
 <div class="section" id="filter-similar-gt">
 <h3>filter_similar_gt</h3>
@@ -342,11 +310,10 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing all the samples’ attributes to be analyzed.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">filter_list</span></code> - string of list containing comparison operators, while each comparison is separated by commas; as an example, if only SNPS variants are to be kept, while also clipping coverage, here is how it is done:</p></li>
 </ol>
-<dl class="simple">
-<dt>::</dt><dd><p>filter_list = “TYPE == snp, DP &gt;= DPmin, DP &lt;= DPmax”
-filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)</p>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filter_list</span> <span class="o">=</span> <span class="s2">&quot;TYPE == snp, DP &gt;= DPmin, DP &lt;= DPmax&quot;</span>
+<span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_vcf</span><span class="p">(</span><span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">filter_list</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="gtbarplots">
 <h3>GTbarPlots</h3>
@@ -362,6 +329,11 @@ filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
 </ol>
+<p>Below an example figure can be seen.</p>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="_images/gtbarplots.png"><img alt="gt-bar-plots" src="_images/gtbarplots.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text">genotype bar plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
+</div>
 </div>
 <div class="section" id="gtplot">
 <h3>GTplot</h3>
@@ -376,6 +348,11 @@ filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
 </ol>
+<p>Below an example figure can be seen.</p>
+<div class="figure align-center" id="id5">
+<a class="reference internal image-reference" href="_images/gtplot.png"><img alt="gt-plot" src="_images/gtplot.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text">genotype plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for all chromosomes (click to expand)</span></p>
+</div>
 </div>
 <div class="section" id="gtplots">
 <h3>GTplots</h3>
@@ -390,6 +367,11 @@ filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
 </ol>
+<p>Below an example figure can be seen.</p>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="_images/gtplots.png"><img alt="gt-plots" src="_images/gtplots.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text">genotype plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
+</div>
 </div>
 <div class="section" id="plot-variant-hist">
 <h3>plot_variant_hist</h3>
@@ -409,6 +391,19 @@ filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">xmin</span></code> - default to 0; if edited, will not work unless used in combination with the <code class="docutils literal notranslate"><span class="pre">xmax</span></code> parameter.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">xmax</span></code> - default to 0, which in reality plots all the way to the maximum X value of the attribute; when bigger than 0, the x-axis will be limited to the number inserted.</p></li>
 </ol>
+<p>Below multiple example figures for <code class="docutils literal notranslate"><span class="pre">DP</span></code>, <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> and <code class="docutils literal notranslate"><span class="pre">PAHAT_1_GT</span></code> can be seen.</p>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="_images/dphist.png"><img alt="dp-hist" src="_images/dphist.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">DP</span></code> histogram for ‘PAHAT_1’ for all chromosomes (click to expand)</span></p>
+</div>
+<div class="figure align-center" id="id8">
+<a class="reference internal image-reference" href="_images/typehist.png"><img alt="type-hist" src="_images/typehist.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">TYPE</span></code> of mutations histogram for all samples and all chromosomes (click to expand)</span></p>
+</div>
+<div class="figure align-center" id="id9">
+<a class="reference internal image-reference" href="_images/gthist.png"><img alt="gt-hist" src="_images/gthist.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">PAHAT_1_GT</span></code> histogram of sample <code class="docutils literal notranslate"><span class="pre">PAHAT_1</span></code> available genotypes in all chromosomes (click to expand)</span></p>
+</div>
 </div>
 <div class="section" id="vcftotable">
 <h3>VCFtoTable</h3>
