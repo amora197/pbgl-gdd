@@ -9,7 +9,7 @@ GDD - Genomic Diversity Distribution
 Introduction
 ------------
 
-GDD is a tool for variant analysis written in Python. It uses multiple libraries, such as Pandas, Numpy, Scikit-Allel, and others. The description and parameters for each function is described below.
+GDD is a tool for variant analysis written in Python. It uses multiple libraries, such as Pandas, Numpy, Scikit-Allel, and others. The description and parameters for each function is described below. The online step-by-step documentation can also be found `online in the ReadtheDocs webpage <https://gdd.readthedocs.io/en/latest/>`_ or by copy/pasting the following link: https://gdd.readthedocs.io/en/latest/.
 
 Available Functions
 -------------------
