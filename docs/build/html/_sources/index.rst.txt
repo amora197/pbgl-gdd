@@ -111,7 +111,7 @@ Below is an example of the output.
 
 .. figure:: ../images/ctbarplot.png
    :alt: ct-bar-plot
-   :height: 600px
+   :width: 600
    :align: center
 
    contingency bar genotypes plots for samples 'PAHAT_1' and 'GHP-2-2' for 3 chromosomes (click to expand)
@@ -176,7 +176,7 @@ Below an example figure can be seen.
 
 .. figure:: ../images/gtbarplots.png
    :alt: gt-bar-plots
-   :height: 600px
+   :width: 600
    :align: center
 
    genotype bar plots for samples 'PAHAT_1' and 'GHP-2-2' for 3 chromosomes (click to expand)
@@ -202,7 +202,7 @@ Below an example figure can be seen.
 
 .. figure:: ../images/gtplot.png
    :alt: gt-plot
-   :height: 600px
+   :width: 600
    :align: center
 
    genotype plots for samples 'PAHAT_1' and 'GHP-2-2' for all chromosomes (click to expand)
@@ -228,7 +228,7 @@ Below an example figure can be seen.
 
 .. figure:: ../images/gtplots.png
    :alt: gt-plots
-   :height: 600px
+   :width: 600
    :align: center
 
    genotype plots for samples 'PAHAT_1' and 'GHP-2-2' for 3 chromosomes (click to expand)
@@ -259,21 +259,21 @@ Below multiple example figures for ``DP``, ``TYPE`` and ``PAHAT_1_GT`` can be se
 
 .. figure:: ../images/dphist.png
    :alt: dp-hist
-   :height: 600px
+   :width: 600
    :align: center
 
    ``DP`` histogram for 'PAHAT_1' for all chromosomes (click to expand)
 
 .. figure:: ../images/typehist.png
    :alt: type-hist
-   :height: 600px
+   :width: 600
    :align: center
 
    ``TYPE`` of mutations histogram for all samples and all chromosomes (click to expand)
 
 .. figure:: ../images/gthist.png
    :alt: gt-hist
-   :height: 600px
+   :width: 600
    :align: center
 
    ``PAHAT_1_GT`` histogram of sample ``PAHAT_1`` available genotypes in all chromosomes (click to expand)
