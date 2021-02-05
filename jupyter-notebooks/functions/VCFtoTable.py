@@ -1,4 +1,4 @@
-from functions.GTtable import *
+from GTtable import *
 import pandas as pd
 import codecs
 import allel

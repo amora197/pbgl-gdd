@@ -1,5 +1,5 @@
-from functions.VCFtoTable import *
 import matplotlib.pyplot as plt
+from VCFtoTable import *
 import numpy as np
 
 '''

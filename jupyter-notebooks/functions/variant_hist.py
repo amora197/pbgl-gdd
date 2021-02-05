@@ -3,19 +3,38 @@ import seaborn as sns
 import numpy as np
 
 # function to plot histograms
-def plot_variant_hist(samples, df, chromosome, attribute, bins=50, MSTD=False, xmin=0, xmax=0):
-    samples = '-'.join(map(str, samples))
-    x = df[attribute][:]
+def plot_variant_hist_New(samples, df, chromosome, attribute, bins=50, MSTD=False, xmin=0, xmax=0):
     fig, ax = plt.subplots(figsize=(12, 9), dpi=500, facecolor='w', edgecolor='whitesmoke')
     sns.despine(ax=ax, offset=10)
     
-    if (xmax!=0):
-        ax.hist(x, bins=bins, range=(xmin,xmax), rwidth=1.0)
+    samples = '-'.join(map(str, samples))
+    x = df[attribute][:]
+    
+    if xmin == 0:
+        remainder = xmax % bins
     else:
-        ax.hist(x, bins=bins, rwidth=1.0)
+        remainder = (xmax - xmin) % bins
+        
+    if (xmax!=0):
+        if remainder == 0:
+            ax.hist(x, bins=bins, range=(xmin, xmax), align='mid')
+        else:
+            ax.hist(x, bins=bins, range=(xmin, xmax-remainder+bins), align='mid')
+        plt.xlim(xmin, xmax)
+    else:
+        ax.hist(x, bins=bins, align='mid')
 
-    left, right = plt.xlim()
     bottom, top = plt.ylim()
+    
+    if (xmax != 0):
+        right = xmax
+        if (xmin != 0):
+            left = xmin
+            plt.xlim(left, right)
+        else:
+            plt.xlim(0, right)
+    else:
+        left, right = plt.xlim()
 
     if MSTD:
         mean = np.mean(x)
