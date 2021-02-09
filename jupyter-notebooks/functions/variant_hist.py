@@ -3,7 +3,7 @@ import seaborn as sns
 import numpy as np
 
 # function to plot histograms
-def plot_variant_hist_New(samples, df, chromosome, attribute, bins=50, MSTD=False, xmin=0, xmax=0):
+def plot_variant_hist(samples, df, chromosome, attribute, bins=50, MSTD=False, xmin=0, xmax=0):
     fig, ax = plt.subplots(figsize=(12, 9), dpi=500, facecolor='w', edgecolor='whitesmoke')
     sns.despine(ax=ax, offset=10)
     
