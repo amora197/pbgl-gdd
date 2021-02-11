@@ -5,3 +5,4 @@ dependencies:
   - dataframe_image
   - seaborn
   - scikit-allel
+  - natsort
