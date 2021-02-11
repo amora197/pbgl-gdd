@@ -121,11 +121,13 @@ def VCFtoTable(vcf_file, filter_gt=False):
                         
     # create dictionary of chromosome's name and length
     chrom_lengths = {}
-    keyword = 'length=(.+?)>'
+    keyword_id = 'ID=(.*?),'
+    keyword_len = 'length=(.+?)>'
     for contig in contigs:
+        ID = re.search(keyword_id, contig)
         for chromosome in chromosomes:
-            if chromosome in contig:
-                length = re.search(keyword, contig)
+            if chromosome == ID.group(1):
+                length = re.search(keyword_len, contig)
                 chrom_lengths[chromosome] = int(length.group(1))
                 
     # convert dictionary to dataframe
