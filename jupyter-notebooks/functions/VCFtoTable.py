@@ -4,7 +4,7 @@ import codecs
 import allel
 import re
 
-def VCFtoTable(vcf_file, filter_gt=False):
+def VCFtoTable(vcf_file):
     # extract data from VCF file
     callset = allel.read_vcf(vcf_file, fields='*', alt_number=1)
     
@@ -84,40 +84,22 @@ def VCFtoTable(vcf_file, filter_gt=False):
     except:
         print("Could not extract TYPE field.")
         
-    # contingency table before filtering
-#    contingency_table(samples, vcf_dataframe)
-        
-    ##### VCF_Dataframe filtering #####    
-    if filter_gt:
-        pass
-#        # filter genotypes where both parent and mutant are the same
-#        gt_samples = ['%s_GT' % sample for sample in samples]
-#        genotypes = ['0/0', '0/1', '1/1']
 
-#        for genotype in genotypes:
-#            filt = (vcf_dataframe[gt_samples[0]] == genotype) & (vcf_dataframe[gt_samples[1]] == genotype)
-#            vcf_dataframe = vcf_dataframe.drop(vcf_dataframe[filt].index)
-
-        # reset indexes
-#        vcf_dataframe.reset_index(inplace=True, drop=True)
-
-        # contingency table after filtering
-#        contingency_table(samples, vcf_dataframe, filtered=True)
-    
     ##### Chromosome Length DataFrame #####    
     # extract chromosome names from vcf_dataframe
     chromosomes = vcf_dataframe.CHROM.unique()
+
+    # extract VCF headers
+    headers = allel.read_vcf_headers(vcf_file)
     
-    # extract chromosome lengths from VCF file by using 'contigs' keyword
+    # extract chromosome lengths from 'headers' by using 'contigs' keyword
     contigs = []
-    with open(vcf_file, mode='r') as vcf:
-        for line in vcf:
-            line = line.rstrip('\n')
-            if 'contig' in line:
-                for chromosome in chromosomes:
-                    if chromosome in line:
-                        contigs.append(line)
-                        break
+    for line in headers[0]:
+        if 'contig' in line:
+            for chromosome in chromosomes:
+                if chromosome in line:
+                    contigs.append(line)
+                    break
                         
     # create dictionary of chromosome's name and length
     chrom_lengths = {}
