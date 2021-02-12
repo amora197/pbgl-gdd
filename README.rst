@@ -279,14 +279,13 @@ VCFtoTable
 
 ::
 
-   samples, vcf_dataframe, chrom_len_dataframe = VCFtoTable(vcf_file, filter_gt=False)
+   samples, vcf_dataframe, chrom_len_dataframe = VCFtoTable(vcf_file)
 
 **Description**:
 
 Extracts information from a VCF file as input and returns 3 outputs. The parameters are:
 
-1. ``vcf_file`` - path to VCF file.
-2. ``filter_gt`` - default to ``False``; it was previously used to filter out the variants where the samples contained the same genotypes GT, such as 0/0, 0/1, and 1/1; now it does not have any functionality; another function ``filter_similar_gt`` does the job to filter out the same genotypes.  
+1. ``vcf_file`` - path to VCF file. 
 
 The 3 outputs are the following:
 
