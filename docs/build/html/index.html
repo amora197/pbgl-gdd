@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>GDD - Genomic Diversity Distribution &mdash; gdd 1.0 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -49,7 +51,7 @@
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> gdd
+            <a href="#" class="icon icon-home"> gdd
           
 
           
@@ -139,6 +141,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -150,7 +154,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -404,14 +408,13 @@
 <div class="section" id="vcftotable">
 <h3>VCFtoTable</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">VCFtoTable</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">,</span> <span class="n">filter_gt</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">VCFtoTable</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
 <p>Extracts information from a VCF file as input and returns 3 outputs. The parameters are:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_file</span></code> - path to VCF file.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">filter_gt</span></code> - default to <code class="docutils literal notranslate"><span class="pre">False</span></code>; it was previously used to filter out the variants where the samples contained the same genotypes GT, such as 0/0, 0/1, and 1/1; now it does not have any functionality; another function <code class="docutils literal notranslate"><span class="pre">filter_similar_gt</span></code> does the job to filter out the same genotypes.</p></li>
 </ol>
 <p>The 3 outputs are the following:</p>
 <ol class="arabic simple">
@@ -428,28 +431,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Anibal Morales, IAEA PBGL - UN FAO
+        &#169; Copyright 2021, Anibal Morales, IAEA PBGL - UN FAO.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
