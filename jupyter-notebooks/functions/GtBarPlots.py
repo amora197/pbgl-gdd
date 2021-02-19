@@ -6,7 +6,7 @@ Function to bar-plot genotype qunatity per chromosome
 for two samples per variant position.
 '''
 
-def GTbarPlots(samples, vcf_df, chrom_len, window_size):
+def gt_bar_plots(samples, vcf_df, chrom_len, window_size):
     samples_names = '-'.join(map(str, samples))
     
     # extract chromosomes and their respective lengths
@@ -15,7 +15,7 @@ def GTbarPlots(samples, vcf_df, chrom_len, window_size):
     max_length = lengths.max()
     
     # list the samples ID_GT from vcf_df and the genotypes to search for
-    gt_samples = ['%s_GT' % sample for sample in samples]
+    gt_samples = ['GT_%s' % sample for sample in samples]
     genotypes = ['0/0', '0/1', '1/1']
     
     # extract CHROM, POS, and samples' GT from vcf_df into new dataframe

@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
 from functions.VCFtoTable import *
+import matplotlib.pyplot as plt
 import numpy as np
 
 '''
@@ -7,7 +7,7 @@ Function that plots a figure per chromosome, showing
 the genotypes of parent and mutant per variant position.
 '''
 
-def GTplots(samples, vcf_dataframe, chrom_len):
+def gt_plots(samples, vcf_dataframe, chrom_len, linethickness=0.025):
     samples_names =  '-'.join(map(str, samples))
     
     # extract chromosomes and their respective lengths
@@ -16,7 +16,7 @@ def GTplots(samples, vcf_dataframe, chrom_len):
     max_length = lengths.max()
     
     # list the samples ID_GT from vcf_dataframe and the genotypes to search for
-    gt_samples = ['%s_GT' % sample for sample in samples]
+    gt_samples = ['GT_%s' % sample for sample in samples]
     genotypes = ['0/0', '0/1', '1/1']
 
     # store the variant positions per GT per sample per chromosome in list of list of list
@@ -55,17 +55,17 @@ def GTplots(samples, vcf_dataframe, chrom_len):
                 if genotype == 0:
                     x = positions[chromosome][sample][genotype]
                     y = np.zeros(len(positions[chromosome][sample][genotype]))
-                    plt.scatter(x, y, marker='|', s=5500, c='b', linewidth=0.025)
+                    plt.scatter(x, y, marker='|', s=5500, c='b', linewidth=linethickness)
                 # plot 0/1's
                 elif genotype == 1:
                     x = positions[chromosome][sample][genotype]
                     y = np.zeros(len(positions[chromosome][sample][genotype]))
-                    plt.scatter(x, y, marker='|', s=5500, c='g', linewidth=0.025)
+                    plt.scatter(x, y, marker='|', s=5500, c='g', linewidth=linethickness)
                 # plot 1/1's
                 elif genotype == 2:
                     x = positions[chromosome][sample][genotype]
                     y = np.zeros(len(positions[chromosome][sample][genotype]))
-                    plt.scatter(x, y, marker='|', s=5500, c='y', linewidth=0.025)
+                    plt.scatter(x, y, marker='|', s=5500, c='y', linewidth=linethickness)
                 else:
                     continue
             

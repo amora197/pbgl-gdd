@@ -1,98 +1,157 @@
-from functions.GTtable import *
+from functions.AttributeGuide import *
+from functions.CTtable import *
+from natsort import natsorted
 import pandas as pd
 import codecs
 import allel
 import re
 
-def VCFtoTable(vcf_file):
-    # extract data from VCF file
-    callset = allel.read_vcf(vcf_file, fields='*', alt_number=1)
-    
-    ##### VCF DataFrame #####
-    vcf_dataframe = pd.DataFrame()
-    
-    # define fields for dataframe by trying to extract each one
-    # if fails, be able to continue
-    try:
-        samples = callset['samples']
-    except:
-        print("Could not find SAMPLES field.")
-    try:
-        chrom = callset['variants/CHROM']
-        vcf_dataframe['CHROM'] = chrom
-    except:
-        print("Could not extract CHROM field.")
-    try:
-        pos = callset['variants/POS']
-        vcf_dataframe['POS'] = pos
-    except:
-        print("Could not extract POS field.")
-    try:
-        ref = callset['variants/REF']
-        vcf_dataframe['REF'] = ref
-    except:
-        print("Could not extract REF field.")
-    try:
-        alt = callset['variants/ALT']
-        vcf_dataframe['ALT'] = alt
-    except:
-        print("Could not extract ALT field.")
-    try:
-        qual = callset['variants/QUAL']
-        vcf_dataframe['QUAL'] = qual
-    except:
-        print("Could not extract QUAL field.")
-    try:
-        dp_info = callset['variants/DP']
-        vcf_dataframe['DP'] = dp_info
-    except:
-        print("Could not extract INFO/DP field.")
-    try:
-        dp_format = callset['calldata/DP']
-        dp_df = pd.DataFrame()
-        for sample in range(len(samples)):
-            column_name = "%s_DP" % samples[sample]
-            vcf_dataframe[column_name] = dp_format[:, sample]
-    except:
-        print("Could not extract FORMAT/DP field.")    
-    try:
-        gt = allel.GenotypeArray(callset['calldata/GT']).to_gt()
-        gt_df = pd.DataFrame()
-        for sample in range(len(samples)):
-            column_name = "%s_GT" % samples[sample]
-            vcf_dataframe[column_name] = gt[:, sample]
-            vcf_dataframe[column_name] = vcf_dataframe[column_name].map(lambda gt: codecs.decode(gt, 'UTF-8')) 
-    except:
-        print("Could not extract GT field")
-    try:
-        ad = allel.GenotypeArray(callset['calldata/AD']).to_gt()
-        ad_df = pd.DataFrame()
-        for sample in range(len(samples)):
-            column_name = "%s_AD" % samples[sample]
-            vcf_dataframe[column_name] = ad[:, sample]
-            vcf_dataframe[column_name] = vcf_dataframe[column_name].map(lambda ad: codecs.decode(ad, 'UTF-8'))
-    except:
-        print("Could not extract AD field.")
-    try:
-        an = callset['variants/AN']
-        vcf_dataframe['AN'] = an
-    except:
-        print("Could not extract AN field.")
-    try:
-        typ = callset['variants/TYPE']
-        vcf_dataframe['TYPE'] = typ
-    except:
-        print("Could not extract TYPE field.")
-        
+# Function to extract info from VCF file and returns 4 things:
+# 1) attributes - dictionary of available attributes in VCF
+# 2) samples - list of samples in VCF 
+# 3) vcf_dataframe - pandas dataframe with attributes' data per column
+# 4) chrom_len - pandas dataframe with chromosome names and lengths
 
-    ##### Chromosome Length DataFrame #####    
-    # extract chromosome names from vcf_dataframe
-    chromosomes = vcf_dataframe.CHROM.unique()
-
+def vcf_to_table(vcf_file):
+    
+    ########## Headers Extraction ##########  
     # extract VCF headers
+    # headers contains a list of lists/dictionaries
+    # headers[0] - list of all the header lines
+    # headers[1] - dict of FILTER field
+    # headers[2] - dict of INFO fields
+    # headers[3] - dict of FORMAT fields
+    # headers[4] - list of samples
     headers = allel.read_vcf_headers(vcf_file)
     
-    # extract chromosome lengths from 'headers' by using 'contigs' keyword
+    # headers included in VCF, such as CHROM, POS, etc...
+    for line in headers[0]:
+        if line[:2] != '##':
+            default_fields = np.transpose(line.replace('#', '').split('\t'))
+
+    mandatory_fields = []
+    for field in default_fields:
+        if 'FILTER' in field:
+            continue
+        if (field == 'INFO') or (field == 'FORMAT'):
+            break
+        mandatory_fields.append(field)
+    
+    
+    ########## Attribute Descriptions ##########
+    attributes = { 'FORMAT': {},
+                   'INFO':   {} }
+    
+    for info in sorted(headers[2]):
+        attributes['INFO'][info] = {}
+        attributes['INFO'][info]['Description'] = headers[2][info]['Description']
+        attributes['INFO'][info]['Type'] = headers[2][info]['Type']
+
+    for info in sorted(headers[3]):
+        attributes['FORMAT'][info] = {}
+        attributes['FORMAT'][info]['Description'] = headers[3][info]['Description']
+        attributes['FORMAT'][info]['Type'] = headers[3][info]['Type']
+    
+    # print attributes
+    attribute_guide(attributes)
+    
+    
+    ########## Attributes Choosing ##########
+    # prompt user to choose attributes to include
+    input_instructions = """
+    ########## Attribute Choosing ##########
+
+    The following will be included by default: 
+    %s,
+    ['GT' (per sample), 'DP' (overall and per sample)]
+
+    Enter the fields to include in the prompt below separated
+    by commas as such:
+
+    >AD, TYPE, AN, LEN, ...
+
+    To leave the default fields only, leave empty and 
+    press ENTER/RETURN.
+
+    >""" % mandatory_fields
+    
+    raw_input = input(input_instructions)
+    fields_to_include = raw_input.replace(' ', '').split(',')
+    
+    
+    ########## VCF Data Extraction ##########
+    # extract data from VCF file
+    print("\nExtracting data from VCF...\n")
+    callset = allel.read_vcf(vcf_file, fields='*', alt_number=1)
+    samples = callset['samples']
+    
+    
+    ########## VCF DataFrame ##########
+    print("\nCreating dataframe with VCF data...\n")
+    vcf_dataframe = pd.DataFrame()
+    
+    # add mandatory fields to dataframe
+    for field in mandatory_fields:
+        vcf_dataframe[field] = callset['variants/%s' % field]
+
+    vcf_dataframe['DP'] = callset['variants/DP']
+    
+    gt = allel.GenotypeArray(callset['calldata/GT']).to_gt()
+    for sample in range(len(samples)):
+        column_name = "GT_%s" % samples[sample]
+        vcf_dataframe[column_name] = gt[:, sample]
+        vcf_dataframe[column_name] = vcf_dataframe[column_name].map(lambda gt: codecs.decode(gt, 'UTF-8'))
+    
+    dp_format = callset['calldata/DP']
+    for sample in range(len(samples)):
+        column_name = "DP_%s" % samples[sample]
+        vcf_dataframe[column_name] = dp_format[:, sample]
+    
+    # include fields chosen by user
+    for field in fields_to_include:
+        if field == 'AD':
+            ad_format = allel.GenotypeArray(callset['calldata/AD']).to_gt()
+            for sample in range(len(samples)):
+                column_name = "AD_%s" % samples[sample]
+                vcf_dataframe[column_name] = ad_format[:, sample]
+                vcf_dataframe[column_name] = vcf_dataframe[column_name].map(lambda ad: codecs.decode(ad, 'UTF-8'))
+
+        elif field == 'GL':
+            gl_format = [[[] for gl in range(3)] for sample in samples]
+            for sample in range(len(samples)):
+                for row in range(len(callset['calldata/GL'])):
+                    for gl in range(3):
+                        gl_format[sample][gl].append(callset['calldata/GL'][row][sample][gl])
+
+            for sample in range(3):
+                column_name = "GL_%s_%i" % (samples[sample], gl)
+                vcf_dataframe[column_name] = np.transpose(gl_format[sample][gl])
+
+        elif (field in attributes['FORMAT']) and (field in attributes['INFO']):
+            vcf_dataframe[field] = callset['variants/%s' % field]
+
+            field_format = callset['calldata/%s' % field]
+            for sample in range(len(samples)):
+                column_name = "%s_%s" % (field, samples[sample])
+                vcf_dataframe[column_name] = field_format[:, sample]
+
+        elif field in attributes['FORMAT']:
+            field_format = callset['calldata/%s' % field]
+            for sample in range(len(samples)):
+                column_name = "%s_%s" % (field, samples[sample])
+                vcf_dataframe[column_name] = field_format[:, sample]
+
+        elif field in attributes['INFO']:
+            vcf_dataframe[field] = callset['variants/%s' % field]
+    
+        
+    
+    ########## Chromosome Length DataFrame ########## 
+    print("\nCreating dataframe with chromosome names and lenghts...\n")
+    # extract unique chromosome names from vcf_dataframe
+    chromosomes = natsorted(vcf_dataframe.CHROM.unique())
+    
+    # extract chromosome lengths from 'headers[0]' by using 'contigs' keyword
     contigs = []
     for line in headers[0]:
         if 'contig' in line:
@@ -106,9 +165,11 @@ def VCFtoTable(vcf_file):
     keyword_id = 'ID=(.*?),'
     keyword_len = 'length=(.+?)>'
     for contig in contigs:
+        # search for keyword_id inside contig line
         ID = re.search(keyword_id, contig)
         for chromosome in chromosomes:
             if chromosome == ID.group(1):
+                # search for keyword_len inside contig line
                 length = re.search(keyword_len, contig)
                 chrom_lengths[chromosome] = int(length.group(1))
                 
@@ -116,4 +177,6 @@ def VCFtoTable(vcf_file):
     chrom_len = pd.DataFrame(chrom_lengths, index=['LEN']).T
     chrom_len.index.name = 'CHROM'
     
-    return samples, vcf_dataframe, chrom_len
+    ########## Return Variables and Dataframes ##########
+    print("\nDONE!\n")
+    return attributes, samples, vcf_dataframe, chrom_len
