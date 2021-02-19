@@ -87,16 +87,17 @@
 <li><a class="reference internal" href="#">GDD - Genomic Diversity Distribution</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#available-functions">Available Functions</a><ul>
-<li><a class="reference internal" href="#contingency-table">contingency_table</a></li>
+<li><a class="reference internal" href="#attribute-guide">attribute_guide</a></li>
+<li><a class="reference internal" href="#ct-bar-plots">ct_bar_plots</a></li>
 <li><a class="reference internal" href="#ct-guide">ct_guide</a></li>
-<li><a class="reference internal" href="#ctbarplots">CTbarPlots</a></li>
-<li><a class="reference internal" href="#filter-similar-gt">filter_similar_gt</a></li>
-<li><a class="reference internal" href="#filter-vcf">filter_vcf</a></li>
-<li><a class="reference internal" href="#gtbarplots">GTbarPlots</a></li>
-<li><a class="reference internal" href="#gtplot">GTplot</a></li>
-<li><a class="reference internal" href="#gtplots">GTplots</a></li>
-<li><a class="reference internal" href="#plot-variant-hist">plot_variant_hist</a></li>
-<li><a class="reference internal" href="#vcftotable">VCFtoTable</a></li>
+<li><a class="reference internal" href="#ct-table">ct_table</a></li>
+<li><a class="reference internal" href="#extract-df-data">extract_df_data</a></li>
+<li><a class="reference internal" href="#filter-sim-gt">filter_sim_gt</a></li>
+<li><a class="reference internal" href="#gt-bar-plots">gt_bar_plots</a></li>
+<li><a class="reference internal" href="#gt-plot">gt_plot</a></li>
+<li><a class="reference internal" href="#gt-plots">gt_plots</a></li>
+<li><a class="reference internal" href="#variant-hist">variant_hist</a></li>
+<li><a class="reference internal" href="#vcf-to-table">vcf_to_table</a></li>
 </ul>
 </li>
 </ul>
@@ -178,10 +179,55 @@
 </div>
 <div class="section" id="available-functions">
 <h2>Available Functions</h2>
-<div class="section" id="contingency-table">
-<h3>contingency_table</h3>
+<div class="section" id="attribute-guide">
+<h3>attribute_guide</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_table</span> <span class="o">=</span> <span class="n">contingency_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">attribute_guide</span><span class="p">(</span><span class="n">attribute_dictionary</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Prints out attribute name, attribute description, and value type of the available attributes from the INFO and FORMAT fields of a VCF file. The parameter is the following:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attribute_dictionary</span></code> - dictionary extracted from the VCF file after using <code class="docutils literal notranslate"><span class="pre">vcf_to_table()</span></code> function.</p></li>
+</ol>
+</div>
+<div class="section" id="ct-bar-plots">
+<h3>ct_bar_plots</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_bar_plots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Plots a genotypic contingency histogram of two samples, depicting by color genotypes along each chromosome. It is essential to use the contingency table guide printed from the output of the <code class="docutils literal notranslate"><span class="pre">ct_guide()</span></code> function. The parameters consist of:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of the two samples being compared.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">GT_sampleA</span></code> and <code class="docutils literal notranslate"><span class="pre">GT_sampleB</span></code> fields.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
+</ol>
+<p>Below is an example of the output.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/ctbarplot.png"><img alt="ct-bar-plot" src="_images/ctbarplot.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">contingency bar genotypes plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
+</div>
+</div>
+<div class="section" id="ct-guide">
+<h3>ct_guide</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_guide</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Prints out a table, showing letters that serve as a guide for the contingency table bar plots output from the <code class="docutils literal notranslate"><span class="pre">ct_bar_plots()</span></code> function described above. The table can be seen below.</p>
+<div class="figure align-center" id="id2">
+<img alt="ct-guide" src="_images/ctguide.png" />
+<p class="caption"><span class="caption-text">contingency table guide for the CTbarPlots function</span></p>
+</div>
+</div>
+<div class="section" id="ct-table">
+<h3>ct_table</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome_name</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
@@ -189,12 +235,11 @@
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of two samples.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the genotypes GT of the <code class="docutils literal notranslate"><span class="pre">samples</span></code> extracted from the VCF file; the dataframe can also be mutated after filtering being done.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">chromosome</span></code> - used to save the name of the chromosome being compared; to print the contingency table of a specific chromosome, the <code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> first needs to be filtered for the specific chromosome. Here is an example:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chromosome_name</span></code> - a string used to save the name of the chromosome being compared; to print the contingency table of a specific chromosome, the <code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> first needs to be filtered for the specific chromosome; if printing contingency table of all chromosomes, type <code class="docutils literal notranslate"><span class="pre">all</span></code>. Here is an example:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromosome</span> <span class="o">=</span> <span class="s1">&#39;Chr12&#39;</span>
-<span class="n">chromosome_dataframe</span> <span class="o">=</span> <span class="n">vcf_dataframe</span><span class="p">[</span> <span class="n">vcf_dataframe</span><span class="o">.</span><span class="n">CHROM</span> <span class="o">==</span> <span class="n">chromosome</span> <span class="p">]</span>
-<span class="n">chromosome_dataframe</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">contingency_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">chromosome_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromosome_filter</span> <span class="o">=</span> <span class="s1">&#39;CHROM == Chr12&#39;</span>
+<span class="n">chromosome_dataframe</span> <span class="o">=</span> <span class="n">extract_df_data</span><span class="p">(</span><span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome_filter</span><span class="p">)</span>
+<span class="n">ct_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">chromosome_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output of all chromosomes would look like the following:</p>
@@ -245,61 +290,14 @@
 </tr>
 </tbody>
 </table>
-<p>Here is an actual output. Notice how all the numbers inside <code class="docutils literal notranslate"><span class="pre">other</span></code> are the same.</p>
-<div class="figure align-center" id="id1">
+<p>Here is an actual output. Notice how all the numbers inside <code class="docutils literal notranslate"><span class="pre">other</span></code> are the same, meaning that these numbers represent the total number of genotypes that are not 0/0, 0/1, or 1/1.</p>
+<div class="figure align-center" id="id3">
 <img alt="ct-table" src="_images/cttable.png" />
 <p class="caption"><span class="caption-text">contingency table of genotypes for samples ‘PAHAT_1’ and ‘GHP-2-2’ for all chromosomes</span></p>
 </div>
 </div>
-<div class="section" id="ct-guide">
-<h3>ct_guide</h3>
-<p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ct_guide</span><span class="p">()</span>
-</pre></div>
-</div>
-<p><strong>Description</strong>:</p>
-<p>Prints out a table, depicting letters that serve as a guide for the Contingency Table bar plots output from the <code class="docutils literal notranslate"><span class="pre">CTbarPlots()</span></code> function described next. The table can be seen below.</p>
-<div class="figure align-center" id="id2">
-<img alt="ct-guide" src="_images/ctguide.png" />
-<p class="caption"><span class="caption-text">contingency table guide for the CTbarPlots function</span></p>
-</div>
-</div>
-<div class="section" id="ctbarplots">
-<h3>CTbarPlots</h3>
-<p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CTbarPlots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Description</strong>:</p>
-<p>Plots a genotypic contingency histogram of two samples, depicting by color genotypes along each chromosome. It is essential to use the contingency table guide printed from the output of the <code class="docutils literal notranslate"><span class="pre">ct_guide()</span></code> function. The parameters consist of:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of the two samples being compared.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleA_GT</span></code> and <code class="docutils literal notranslate"><span class="pre">sampleB_GT</span></code> fields.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
-</ol>
-<p>Below is an example of the output.</p>
-<div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="_images/ctbarplot.png"><img alt="ct-bar-plot" src="_images/ctbarplot.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">contingency bar genotypes plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
-</div>
-</div>
-<div class="section" id="filter-similar-gt">
-<h3>filter_similar_gt</h3>
-<p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_similar_gt</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">genotype</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Description</strong>:</p>
-<p>Returns a dataframe that has filtered out variants where two samples have the same genotype, i.e. not real variants. The parameters consist of:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of 2 samples being analyzed.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">genotype</span></code> - genotype to be filtered out; normally, loci where both samples have 0/0, 1/1, or other genotypes that are not 0’s or 1’s are filtered out; these other genotypes could be 0/2, 1/3, 1/2, etc.</p></li>
-</ol>
-</div>
-<div class="section" id="filter-vcf">
-<h3>filter_vcf</h3>
+<div class="section" id="extract-df-data">
+<h3>extract_df_data</h3>
 <p><strong>Usage</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_vcf</span><span class="p">(</span><span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">filter_list</span><span class="p">)</span>
 </pre></div>
@@ -308,24 +306,44 @@
 <p>Returns a filtered vcf_dataframe. A filter list can be input in the <code class="docutils literal notranslate"><span class="pre">filter_list</span></code> parameter. The parameter options are:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing all the samples’ attributes to be analyzed.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">filter_list</span></code> - string of list containing comparison operators, while each comparison is separated by commas; as an example, if only SNPS variants are to be kept, while also clipping coverage, here is how it is done:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_list</span></code> - string containing comparison operators, while each comparison is separated by commas; as an example, if only SNPs variants are to be kept, while also clipping depth/coverage, chromosome, specific genotype, and quality, here is how it is done:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filter_list</span> <span class="o">=</span> <span class="s2">&quot;TYPE == snp, DP &gt;= DPmin, DP &lt;= DPmax&quot;</span>
-<span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_vcf</span><span class="p">(</span><span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">filter_list</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filter_list</span> <span class="o">=</span> <span class="s2">&quot;TYPE == snp, DP &gt;= 10, DP &lt;= 100, CHROM != mitochondria, GT_mutant == 1/1, QUAL &gt; 1000&quot;</span>
+<span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">extract_df_data</span><span class="p">(</span><span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">filter_list</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="gtbarplots">
-<h3>GTbarPlots</h3>
+<div class="section" id="filter-sim-gt">
+<h3>filter_sim_gt</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GTbarPlots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_sim_gt</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">genotype_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Returns a dataframe that has filtered out variants where two samples have the same genotype, i.e. not real variants. The parameters consist of:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of 2 samples being analyzed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">GT_sampleName</span></code> field per sample.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">genotype_list</span></code> - list of genotypes to be filtered out; normally, loci where both samples have 0/0, 1/1, or other genotypes that are not 0’s or 1’s are filtered out; these other genotypes could be 0/2, 1/3, 1/2, etc.</p></li>
+</ol>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0/0&#39;</span><span class="p">,</span> <span class="s1">&#39;1/1&#39;</span><span class="p">]</span>
+<span class="n">filtered_vcf_dataframe</span> <span class="o">=</span> <span class="n">filter_sim_gt</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">genotypes</span><span class="p">)</span>
+<span class="n">ct_table</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">filtered_vcf_dataframe</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="gt-bar-plots">
+<h3>gt_bar_plots</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gt_bar_plots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
 <p>Plots genotypic histograms of two samples, depicting by color 0/0, 0/1, or 1/1 genotypes along each chromosome per sample. The parameters consist of:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of the two samples being compared.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleA_GT</span></code> and <code class="docutils literal notranslate"><span class="pre">sampleB_GT</span></code> fields.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">GT_sampleA</span></code> and <code class="docutils literal notranslate"><span class="pre">GT_sampleB</span></code> fields.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code> - the length in base-pairs (bp) of the window size to be analyzed.</p></li>
 </ol>
@@ -335,18 +353,19 @@
 <p class="caption"><span class="caption-text">genotype bar plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
 </div>
 </div>
-<div class="section" id="gtplot">
-<h3>GTplot</h3>
+<div class="section" id="gt-plot">
+<h3>gt_plot</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GTplot</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gt_plot</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">linethickness</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
-<p>Plots the genotypes of each chromosome per sample in one figure. The parameters are:</p>
+<p>Plots the 0/0, 0/1, 1/1 genotypes of each chromosome per sample in one figure. The parameters are:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples in the VCF file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples to focus on from VCF file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linethickness</span></code> - default to 0.02; useful to control line thickness when only a few genotypes are present in the dataframe.</p></li>
 </ol>
 <p>Below an example figure can be seen.</p>
 <div class="figure align-center" id="id5">
@@ -354,10 +373,10 @@
 <p class="caption"><span class="caption-text">genotype plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for all chromosomes (click to expand)</span></p>
 </div>
 </div>
-<div class="section" id="gtplots">
-<h3>GTplots</h3>
+<div class="section" id="gt-plots">
+<h3>gt_plots</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GTplots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gt_plots</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span><span class="p">,</span> <span class="n">linethickness</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
@@ -366,6 +385,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list samples being analyzed.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code> field per sample.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linethickness</span></code> - default to 0.02; useful to control line thickness when only a few genotypes are present in the dataframe.</p></li>
 </ol>
 <p>Below an example figure can be seen.</p>
 <div class="figure align-center" id="id6">
@@ -373,10 +393,10 @@
 <p class="caption"><span class="caption-text">genotype plots for samples ‘PAHAT_1’ and ‘GHP-2-2’ for 3 chromosomes (click to expand)</span></p>
 </div>
 </div>
-<div class="section" id="plot-variant-hist">
-<h3>plot_variant_hist</h3>
+<div class="section" id="variant-hist">
+<h3>variant_hist</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_variant_hist</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">MSTD</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">variant_hist</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">MSTD</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
@@ -405,21 +425,22 @@
 <p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">PAHAT_1_GT</span></code> histogram of sample <code class="docutils literal notranslate"><span class="pre">PAHAT_1</span></code> available genotypes in all chromosomes (click to expand)</span></p>
 </div>
 </div>
-<div class="section" id="vcftotable">
-<h3>VCFtoTable</h3>
+<div class="section" id="vcf-to-table">
+<h3>vcf_to_table</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">VCFtoTable</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">attributes</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">vcf_to_table</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
-<p>Extracts information from a VCF file as input and returns 3 outputs. The parameters are:</p>
+<p>Extracts information from a VCF file as input and returns 4 outputs. First, the available attributes will be printed, giving the user the option to input wanted attributes besides the mandatory ones (specified in this printed output). The parameters are:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">vcf_file</span></code> - path to VCF file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_file</span></code> - path/name to VCF file.</p></li>
 </ol>
-<p>The 3 outputs are the following:</p>
+<p>The 4 outputs are the following:</p>
 <ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> - dictionary containing the available attributes/fields in the VCF file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples in the VCF file.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing the following fields: <code class="docutils literal notranslate"><span class="pre">CHROM</span></code>, <code class="docutils literal notranslate"><span class="pre">POS</span></code>, <code class="docutils literal notranslate"><span class="pre">REF</span></code>, <code class="docutils literal notranslate"><span class="pre">ALT</span></code>, <code class="docutils literal notranslate"><span class="pre">QUAL</span></code>, <code class="docutils literal notranslate"><span class="pre">DP</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_GT</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_AD</span></code>, <code class="docutils literal notranslate"><span class="pre">sampleName_AN</span></code>, <code class="docutils literal notranslate"><span class="pre">TYPE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing fields specified in prompt.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>
 </ol>
 </div>
