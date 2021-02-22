@@ -34,6 +34,19 @@ def vcf_to_table(vcf_file):
         if (field == 'INFO') or (field == 'FORMAT'):
             break
         mandatory_fields.append(field)   
+
+    attributes = { 'FORMAT': {},
+                   'INFO':   {} }
+
+    for info in sorted(headers[2]):
+        attributes['INFO'][info] = {}
+        attributes['INFO'][info]['Description'] = headers[2][info]['Description']
+        attributes['INFO'][info]['Type'] = headers[2][info]['Type']
+
+    for info in sorted(headers[3]):
+        attributes['FORMAT'][info] = {}
+        attributes['FORMAT'][info]['Description'] = headers[3][info]['Description']
+        attributes['FORMAT'][info]['Type'] = headers[3][info]['Type']
     
     
     ########## Attributes Choosing ##########
