@@ -33,7 +33,7 @@ attribute_guide
 
 Prints out attribute name, attribute description, and value type of the available attributes from the INFO and FORMAT fields of a VCF file. The parameter is the following:
 
-1. ``attribute_dictionary`` - dictionary extracted from the VCF file after using ``vcf_to_table()`` function.
+1. ``attribute_dictionary`` - dictionary extracted from the VCF file after using ``extract_attributes()`` function.
 
 ct_bar_plots
 ^^^^^^^^^^^^
