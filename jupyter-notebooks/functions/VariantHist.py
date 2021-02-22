@@ -10,9 +10,17 @@ def variant_hist(samples, df, chromosome, attribute, bins=50, MSTD=False, xmin=0
     samples = '-'.join(map(str, samples))
     x = df[attribute][:]
     
-    if xmin == 0:
+    try:
+        xMax = max(x)
+        xMin = min(x)
+        remainder = (xMax - xMin) % bins
+    except:
+        pass
+    
+    
+    if (xmin == 0) and (xmax != 0):
         remainder = xmax % bins
-    else:
+    elif (xmin != 0) and (xmax != 0):
         remainder = (xmax - xmin) % bins
         
     if (xmax!=0):
@@ -22,7 +30,10 @@ def variant_hist(samples, df, chromosome, attribute, bins=50, MSTD=False, xmin=0
             ax.hist(x, bins=bins, range=(xmin, xmax-remainder+bins), align='mid')
         plt.xlim(xmin, xmax)
     else:
-        ax.hist(x, bins=bins, align='mid')
+        try:
+            ax.hist(x, bins=bins, range=(xMin, xMax-remainder + bins), align='mid')
+        except:
+            ax.hist(x, bins=bins, align='mid')
 
     bottom, top = plt.ylim()
     
