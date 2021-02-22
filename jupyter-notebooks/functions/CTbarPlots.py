@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-def CTbarPlots(samples, vcf_df, chrom_len, window_size):
+def ct_bar_plots(samples, vcf_df, chrom_len, window_size):
     
     ''' 
     Dictionary to create contingency table
@@ -25,7 +25,7 @@ def CTbarPlots(samples, vcf_df, chrom_len, window_size):
     lengths = chrom_len.LEN
     max_length = lengths.max()
     
-    gt_samples = ['%s_GT' % sample for sample in samples]
+    gt_samples = ['GT_%s' % sample for sample in samples]
     genotypes = ['0/0', '0/1', '1/1']
     
     df = vcf_df.filter(['CHROM', 'POS', gt_samples[0], gt_samples[1]])

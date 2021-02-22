@@ -7,14 +7,17 @@ import codecs
 import allel
 import re
 
-from functions.VCFtoTable import *
-from functions.GTtable import *
-from functions.GTplots import *
-from functions.GTplot import *
-from functions.BarPlots import *
+from functions.AttributeGuide import *
 from functions.CTbarPlots import *
-from functions.stats import *
-from functions.FilterVCF import *
 from functions.CTguide import *
-from functions.variant_hist import *
-from functions.GTfilter import *
+from functions.CTtable import *
+from functions.ExtractAttributes import *
+from functions.ExtractDfData import *
+from functions.FilterSimGT import *
+from functions.GtBarPlots import *
+from functions.GTplot import *
+from functions.GTplots import *
+from functions.VariantHist import *
+from functions.VCFtoTable import *
+
+from natsort import natsorted

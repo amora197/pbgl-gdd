@@ -2,7 +2,7 @@ import dataframe_image as dfi
 import pandas as pd
 import numpy as np
 
-def contingency_table(samples, vcf_dataframe, chromosome):
+def ct_table(samples, vcf_dataframe, chromosome):
     
     ''' 
     Dictionary to create contingency table
@@ -22,7 +22,7 @@ def contingency_table(samples, vcf_dataframe, chromosome):
 
     number_of_samples = len(samples)
     samples_names =  '-'.join(map(str, samples))
-    gt_samples = ['%s_GT' % sample for sample in samples]
+    gt_samples = ['GT_%s' % sample for sample in samples]
 
     for sample in range(number_of_samples):
         

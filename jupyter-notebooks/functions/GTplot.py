@@ -5,7 +5,7 @@ import numpy as np
 Plot all the genotypes per chromosomes per sample in one figure.
 '''
 
-def GTplot(samples, vcf_dataframe, chrom_len):
+def gt_plot(samples, vcf_dataframe, chrom_len, linethickness=0.02):
     
     samples_names =  '-'.join(map(str, samples))
 
@@ -13,7 +13,7 @@ def GTplot(samples, vcf_dataframe, chrom_len):
     lengths = chrom_len.LEN
     max_length = lengths.max()
 
-    gt_samples = ['%s_GT' % sample for sample in samples]
+    gt_samples = ['GT_%s' % sample for sample in samples]
     genotypes = ['0/0', '0/1', '1/1']
 
     positions = [ [ [] for sample in samples] for chromosome in chromosomes]
@@ -43,24 +43,24 @@ def GTplot(samples, vcf_dataframe, chrom_len):
                 if genotype == 0:
                     x = positions[chromosome][sample][genotype]
                     y = np.zeros(len(positions[chromosome][sample][genotype]))
-                    plt.scatter(x, y, marker='|', s=5500, c='b', linewidth=0.02)
+                    plt.scatter(x, y, marker='|', s=5500, c='b', linewidth=linethickness)
                 elif genotype == 1:
                     x = positions[chromosome][sample][genotype]
                     y = np.zeros(len(positions[chromosome][sample][genotype]))
-                    plt.scatter(x, y, marker='|', s=5500, c='g', linewidth=0.02)
+                    plt.scatter(x, y, marker='|', s=5500, c='g', linewidth=linethickness)
                 elif genotype == 2:
                     x = positions[chromosome][sample][genotype]
                     y = np.zeros(len(positions[chromosome][sample][genotype]))
-                    plt.scatter(x, y, marker='|', s=5500, c='y', linewidth=0.02)
+                    plt.scatter(x, y, marker='|', s=5500, c='y', linewidth=linethickness)
                 else:
                     continue
             subplot_index += 1
 
-    leg1 = plt.legend(bbox_to_anchor=(1.01,11*len(samples)*0.5), loc="center left", borderaxespad=0,
+    leg1 = plt.legend(bbox_to_anchor=(1.01,len(chromosomes)*len(samples)*0.5), loc="center left", borderaxespad=0,
                       frameon=False, 
                       prop={'size': 20},
                       labels=['0/0','0/1','1/1'], fontsize='large')
-    leg2 = plt.legend(bbox_to_anchor=(1.01,11*len(samples)*0.5), loc="center left", borderaxespad=0,
+    leg2 = plt.legend(bbox_to_anchor=(1.01,len(chromosomes)*len(samples)*0.5), loc="center left", borderaxespad=0,
                       frameon=False, markerfirst=False, 
                       prop={'weight': 'extra bold', 'size': 20},
                       labels=['|','|','|'], labelcolor=['b','g','y'],  fontsize='large')
