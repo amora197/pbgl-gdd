@@ -91,6 +91,7 @@
 <li><a class="reference internal" href="#ct-bar-plots">ct_bar_plots</a></li>
 <li><a class="reference internal" href="#ct-guide">ct_guide</a></li>
 <li><a class="reference internal" href="#ct-table">ct_table</a></li>
+<li><a class="reference internal" href="#extract-attributes">extract_attributes</a></li>
 <li><a class="reference internal" href="#extract-df-data">extract_df_data</a></li>
 <li><a class="reference internal" href="#filter-sim-gt">filter_sim_gt</a></li>
 <li><a class="reference internal" href="#gt-bar-plots">gt_bar_plots</a></li>
@@ -296,6 +297,22 @@
 <p class="caption"><span class="caption-text">contingency table of genotypes for samples ‘PAHAT_1’ and ‘GHP-2-2’ for all chromosomes</span></p>
 </div>
 </div>
+<div class="section" id="extract-attributes">
+<h3>extract_attributes</h3>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">attributes</span> <span class="o">=</span> <span class="n">extract_attributes</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>Returns a dictionary of the available attributes/fields in the VCF file. The available attributes will be printed, giving the user the option to input wanted attributes besides the mandatory ones (specified in this printed output) in the function <code class="docutils literal notranslate"><span class="pre">vcf_to_table()</span></code> function.The parameter option is:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vcf_file</span></code> - path/name to VCF file.</p></li>
+</ol>
+<p>The output is:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> - dictionary containing the available attributes/fields in the VCF file.</p></li>
+</ol>
+</div>
 <div class="section" id="extract-df-data">
 <h3>extract_df_data</h3>
 <p><strong>Usage</strong>:</p>
@@ -428,17 +445,16 @@
 <div class="section" id="vcf-to-table">
 <h3>vcf_to_table</h3>
 <p><strong>Usage</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">attributes</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">vcf_to_table</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">,</span> <span class="n">vcf_dataframe</span><span class="p">,</span> <span class="n">chrom_len_dataframe</span> <span class="o">=</span> <span class="n">vcf_to_table</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Description</strong>:</p>
-<p>Extracts information from a VCF file as input and returns 4 outputs. First, the available attributes will be printed, giving the user the option to input wanted attributes besides the mandatory ones (specified in this printed output). The parameters are:</p>
+<p>Extracts information from a VCF file as input and returns 3 outputs. The parameters are:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_file</span></code> - path/name to VCF file.</p></li>
 </ol>
-<p>The 4 outputs are the following:</p>
+<p>The 3 outputs are the following:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> - dictionary containing the available attributes/fields in the VCF file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code> - list of samples in the VCF file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vcf_dataframe</span></code> - pandas dataframe containing fields specified in prompt.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chrom_len_dataframe</span></code> - pandas dataframe containing the chromosome names and their respective lengths.</p></li>

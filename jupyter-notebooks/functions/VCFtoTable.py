@@ -1,4 +1,3 @@
-from functions.AttributeGuide import *
 from functions.CTtable import *
 from natsort import natsorted
 import pandas as pd
@@ -7,10 +6,9 @@ import allel
 import re
 
 # Function to extract info from VCF file and returns 4 things:
-# 1) attributes - dictionary of available attributes in VCF
-# 2) samples - list of samples in VCF 
-# 3) vcf_dataframe - pandas dataframe with attributes' data per column
-# 4) chrom_len - pandas dataframe with chromosome names and lengths
+# 1) samples - list of samples in VCF 
+# 2) vcf_dataframe - pandas dataframe with attributes' data per column
+# 3) chrom_len - pandas dataframe with chromosome names and lengths
 
 def vcf_to_table(vcf_file):
     
@@ -35,25 +33,7 @@ def vcf_to_table(vcf_file):
             continue
         if (field == 'INFO') or (field == 'FORMAT'):
             break
-        mandatory_fields.append(field)
-    
-    
-    ########## Attribute Descriptions ##########
-    attributes = { 'FORMAT': {},
-                   'INFO':   {} }
-    
-    for info in sorted(headers[2]):
-        attributes['INFO'][info] = {}
-        attributes['INFO'][info]['Description'] = headers[2][info]['Description']
-        attributes['INFO'][info]['Type'] = headers[2][info]['Type']
-
-    for info in sorted(headers[3]):
-        attributes['FORMAT'][info] = {}
-        attributes['FORMAT'][info]['Description'] = headers[3][info]['Description']
-        attributes['FORMAT'][info]['Type'] = headers[3][info]['Type']
-    
-    # print attributes
-    attribute_guide(attributes)
+        mandatory_fields.append(field)   
     
     
     ########## Attributes Choosing ##########
@@ -179,4 +159,4 @@ def vcf_to_table(vcf_file):
     
     ########## Return Variables and Dataframes ##########
     print("\nDONE!\n")
-    return attributes, samples, vcf_dataframe, chrom_len
+    return samples, vcf_dataframe, chrom_len

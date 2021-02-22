@@ -11,6 +11,7 @@ from functions.AttributeGuide import *
 from functions.CTbarPlots import *
 from functions.CTguide import *
 from functions.CTtable import *
+from functions.ExtractAttributes import *
 from functions.ExtractDfData import *
 from functions.FilterSimGT import *
 from functions.GtBarPlots import *

@@ -125,6 +125,25 @@ Here is an actual output. Notice how all the numbers inside ``other`` are the sa
 
    contingency table of genotypes for samples 'PAHAT_1' and 'GHP-2-2' for all chromosomes
 
+extract_attributes
+^^^^^^^^^^^^^^^^^^
+
+**Usage**:
+
+::
+
+   attributes = extract_attributes(vcf_file)
+
+**Description**:
+
+Returns a dictionary of the available attributes/fields in the VCF file. The available attributes will be printed, giving the user the option to input wanted attributes besides the mandatory ones (specified in this printed output) in the function ``vcf_to_table()`` function.The parameter option is:
+
+1. ``vcf_file`` - path/name to VCF file. 
+
+The output is:
+
+1. ``attributes`` - dictionary containing the available attributes/fields in the VCF file.
+
 extract_df_data
 ^^^^^^^^^^^^^^^
 
@@ -304,19 +323,18 @@ vcf_to_table
 
 ::
 
-   attributes, samples, vcf_dataframe, chrom_len_dataframe = vcf_to_table(vcf_file)
+   samples, vcf_dataframe, chrom_len_dataframe = vcf_to_table(vcf_file)
 
 **Description**:
 
-Extracts information from a VCF file as input and returns 4 outputs. First, the available attributes will be printed, giving the user the option to input wanted attributes besides the mandatory ones (specified in this printed output). The parameters are:
+Extracts information from a VCF file as input and returns 3 outputs. The parameters are:
 
 1. ``vcf_file`` - path/name to VCF file. 
 
-The 4 outputs are the following:
+The 3 outputs are the following:
 
-1. ``attributes`` - dictionary containing the available attributes/fields in the VCF file.
-2. ``samples`` - list of samples in the VCF file.
-3. ``vcf_dataframe`` - pandas dataframe containing fields specified in prompt.
-4. ``chrom_len_dataframe`` - pandas dataframe containing the chromosome names and their respective lengths.
+1. ``samples`` - list of samples in the VCF file.
+2. ``vcf_dataframe`` - pandas dataframe containing fields specified in prompt.
+3. ``chrom_len_dataframe`` - pandas dataframe containing the chromosome names and their respective lengths.
 
 
