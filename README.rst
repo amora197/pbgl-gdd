@@ -151,7 +151,7 @@ extract_df_data
 
 ::
 
-   filtered_vcf_dataframe = filter_vcf(vcf_dataframe, filter_list)
+   filtered_vcf_dataframe = extract_df_data(vcf_dataframe, filter_list)
 
 **Description**:
 
