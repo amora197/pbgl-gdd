@@ -93,7 +93,8 @@ def vcf_to_table(vcf_file):
     for sample in range(len(samples)):
         column_name = "GT_%s" % samples[sample]
         vcf_dataframe[column_name] = gt[:, sample]
-        vcf_dataframe[column_name] = vcf_dataframe[column_name].map(lambda gt: codecs.decode(gt, 'UTF-8'))
+#         vcf_dataframe[column_name] = vcf_dataframe[column_name].map(lambda gt: codecs.decode(gt, 'UTF-8'))
+        vcf_dataframe[column_name] = vcf_dataframe[column_name].str.decode("utf-8")
     
     dp_format = callset['calldata/DP']
     for sample in range(len(samples)):
